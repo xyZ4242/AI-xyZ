@@ -1,0 +1,330 @@
+
+:root {
+    /* Palette Premium Dark */
+    --bg-body: #09090b;       /* Hitam pekat  */
+    --bg-card: #141416;       /* Abu sangat gelap untuk kartu */
+    --glass-bg: rgba(20, 20, 22, 0.7); /* Transparan untuk efek kaca */
+    --glass-border: rgba(255, 255, 255, 0.08);
+    
+    /* Typography Colors */
+    --text-main: #ECECEC;
+    --text-muted: #A1A1AA;
+    
+    /* Signature Gradients */
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+    --card-hover-border: linear-gradient(to right, #6366f1, #ec4899);
+    
+    /* Spacing & Radius */
+    --radius-xl: 24px;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+}
+
+/* --- RESET & TYPOGRAPHY --- */
+* { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+
+body { 
+    margin: 0; 
+    font-family: 'Plus Jakarta Sans', sans-serif; /* Font Modern Clean */
+    background-color: var(--bg-body); 
+    background-image: radial-gradient(circle at top center, rgba(99, 102, 241, 0.08), transparent 70%); /* Ambient Glow */
+    color: var(--text-main); 
+    display: flex; 
+    height: 100vh; 
+    overflow: hidden;
+}
+
+/* Custom Scrollbar Premium */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* --- SIDEBAR (PC Modern) --- */
+.sidebar { 
+    width: 280px; 
+    background: var(--glass-bg); 
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    display: flex; 
+    flex-direction: column; 
+    padding: 24px 16px; 
+    flex-shrink: 0;
+    z-index: 50;
+}
+
+.brand-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
+    padding-left: 10px;
+    display: flex; align-items: center; gap: 8px;
+}
+
+.new-chat-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.new-chat-btn:hover { 
+    background: rgba(255, 255, 255, 0.1); 
+    color: #FFF; 
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.3);
+}
+
+.nav-group { margin-top: auto; display: flex; flex-direction: column; gap: 5px; }
+.nav-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.nav-item:hover { background: rgba(255,255,255,0.05); color: #FFF; }
+.nav-item span { font-size: 20px; }
+
+/* --- MAIN CONTENT --- */
+.main-content { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    position: relative; 
+    width: 100%; 
+}
+
+/* Header Mobile/PC */
+.top-bar { 
+    padding: 20px 30px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.model-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+.model-badge b { color: #FFF; }
+.user-avatar { 
+    width: 36px; height: 36px; 
+    background: linear-gradient(135deg, #333, #111);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; 
+    font-size: 14px; font-weight: 700;
+}
+
+/* Chat Area */
+#chat-container { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 0 0 140px 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%;
+}
+
+/* Greeting Section */
+.greeting-area { 
+    width: 100%; max-width: 850px; 
+    padding: 40px 20px; 
+    margin-top: 5vh; 
+    animation: slideUp 0.6s ease-out;
+}
+.greet-title { 
+    font-family: 'Outfit', sans-serif;
+    font-size: 52px; 
+    font-weight: 600; 
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #FFF 20%, #A1A1AA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.greet-subtitle {
+    font-size: 20px;
+    color: var(--text-muted);
+    margin-bottom: 50px;
+}
+
+/* Modern Glass Cards */
+.cards-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    gap: 16px; 
+}
+.card { 
+    background: var(--bg-card); 
+    border: 1px solid var(--glass-border);
+    padding: 20px; 
+    border-radius: var(--radius-lg); 
+    height: 180px; 
+    position: relative; 
+    cursor: pointer; 
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+/* Efek Glow Border saat Hover */
+.card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--primary-gradient);
+    opacity: 0; transition: 0.3s;
+}
+.card:hover { 
+    transform: translateY(-5px); 
+    background: rgba(255,255,255,0.03); 
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+}
+.card:hover::before { opacity: 1; }
+
+.card p { margin: 0; font-size: 15px; color: #EEE; line-height: 1.5; font-weight: 500; }
+.card-icon-box { 
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.05); 
+    border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center;
+    color: #a855f7; /* Ungu */
+}
+
+/* Message Bubbles */
+.message-wrapper { width: 100%; max-width: 850px; padding: 24px 20px; display: flex; gap: 20px; }
+.user-msg { flex-direction: row-reverse; }
+
+.ai-icon, .user-icon { 
+    width: 32px; height: 32px; flex-shrink: 0; border-radius: 10px; 
+    display: flex; align-items: center; justify-content: center; 
+}
+.ai-icon img { width: 100%; height: 100%; animation: pulseSlow 3s infinite; }
+.user-icon { background: #333; color: #FFF; font-size: 12px; border: 1px solid #444; }
+
+.text-content { font-size: 16px; line-height: 1.7; color: var(--text-main); }
+.user-msg .text-content { 
+    background: #27272a; 
+    color: #FFF;
+    padding: 14px 22px; 
+    border-radius: 20px 4px 20px 20px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* --- CODE BLOCK STYLING (PENTING AGAR CODINGAN MUNCUL RAPI) --- */
+.code-wrapper {
+    background: #0d0d0d; /* Lebih gelap dari bg kartu */
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    margin: 15px 0;
+    overflow: hidden;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.code-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex; justify-content: space-between;
+}
+
+pre {
+    margin: 0;
+    padding: 15px;
+    overflow-x: auto; /* Scroll jika codingan panjang */
+}
+
+code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.95rem;
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+.inline-code {
+    background: rgba(168, 85, 247, 0.15); /* Tint Ungu */
+    color: #d8b4fe;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: monospace;
+}
+
+/* --- FLOATING INPUT AREA --- */
+.input-container { 
+    position: fixed; bottom: 30px; left: 280px; right: 0; 
+    display: flex; justify-content: center; z-index: 100;
+    pointer-events: none; 
+}
+
+.input-box { 
+    pointer-events: auto;
+    width: 90%; max-width: 800px; 
+    background: rgba(30, 30, 32, 0.85); /* Glass effect */
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px; 
+    display: flex; align-items: center; 
+    padding: 8px 12px 8px 24px; 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: 0.3s;
+}
+.input-box:focus-within { 
+    border-color: #a855f7; 
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
+    background: #1e1e20;
+}
+
+.input-field { 
+    flex: 1; background: transparent; border: none; color: white; 
+    font-size: 16px; padding: 12px 0; font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Tombol Kirim Premium */
+.send-btn { 
+    background: var(--primary-gradient); 
+    border: none; cursor: pointer; 
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; transition: 0.3s; margin-left: 10px;
+    box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4);
+}
+.send-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(236, 72, 153, 0.6); }
+.send-btn:active { transform: scale(0.95); }
+
+/* --- ANIMATIONS --- */
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseSlow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.95); opacity: 0.8; } }
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    .sidebar { display: none; } /* Mobile Menu Standar */
+    .input-container { left: 0; bottom: 20px; padding: 0 15px; }
+    .input-box { width: 100%; border-radius: 25px; }
+    .greet-title { font-size: 38px; }
+    .cards-grid { display: flex; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; }
+    .card { min-width: 240px; scroll-snap-align: center; }
+    .top-bar { padding: 15px 20px; }
+    .message-wrapper { padding: 15px; }
+    .user-msg .text-content { max-width: 90%; }
+}
+
+/* Typography Utils */
+b { font-weight: 700; color: #fff; }
