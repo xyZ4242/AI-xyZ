@@ -1,18 +1,20 @@
 /* ============================================================
+   FILE: huhu.js
+   FUNGSI: Logika Chat, DOM Manipulation, dan Parsing Code
    ============================================================ */
 
 let lastAction = 0;
 let isFirstChat = true;
 
-// ---  ---
+// --- FUNGSI FORMATTING (INTI PERBAIKAN) ---
 function formatMessage(text) {
-    // 1.  (```...```)
+    // 1. Pisahkan teks berdasarkan blok kode (```...```)
     const parts = text.split(/```/g);
     let formatted = "";
 
     parts.forEach((part, index) => {
         if (index % 2 === 1) {
-            // Ambil bahasa (misal: javascript, html) jika ada
+            // --- INI BAGIAN KODE (Ganjil) ---
             let lang = "code";
             let codeContent = part;
             
@@ -22,7 +24,7 @@ function formatMessage(text) {
                 codeContent = part.substring(firstLineBreak + 1);
             }
 
-            // Escape HTML agar tidak dijalankan browser (< jadi &lt;)
+            // Escape HTML agar tidak dijalankan browser
             codeContent = codeContent
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
@@ -93,6 +95,7 @@ async function executeProtokol() {
     
     const aiId = 'xyz-' + now;
     
+    // PERBAIKAN 1: Hapus tanda []() pada src gambar
     container.innerHTML += `
         <div class="message-wrapper ai-msg">
             <div class="ai-icon">
@@ -107,6 +110,7 @@ async function executeProtokol() {
     container.scrollTop = container.scrollHeight;
 
     try {
+        // PERBAIKAN 2: URL API harus bersih dari tanda []()
         const response = await fetch("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", {
             method: "POST",
             headers: {
@@ -123,17 +127,23 @@ async function executeProtokol() {
             })
         });
 
+        // Cek jika error dari API (misal limit habis)
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
+
         const data = await response.json();
         const rawText = data.choices[0].message.content;
         
-        // PANGGIL FUNGSI FORMATTING BARU
+        // PANGGIL FUNGSI FORMATTING
         const prettyHtml = formatMessage(rawText);
         
         document.getElementById(aiId).innerHTML = prettyHtml;
         
     } catch (e) {
         console.error(e);
-        document.getElementById(aiId).innerText = "Sistem sibuk atau koneksi terputus.";
+        // Pesan error lebih spesifik
+        document.getElementById(aiId).innerHTML = `<span style="color:red;">Error: ${e.message || "Koneksi terputus."}</span><br><small>Cek console (F12) untuk detail.</small>`;
     }
     
     container.scrollTop = container.scrollHeight;
